@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+<meta charset="UTF-8">
+<title>Кешірім сұрау</title>
+
+<style>
+body {
+    margin: 0;
+    overflow: hidden;
+    background: linear-gradient(to right, pink, lightpink);
+    font-family: Arial;
+    text-align: center;
+}
+
+h1 {
+    margin-top: 120px;
+    font-size: 32px;
+}
+
+p {
+    font-size: 20px;
+}
+
+button {
+    padding: 15px 30px;
+    font-size: 18px;
+    border: none;
+    border-radius: 12px;
+    cursor: pointer;
+}
+
+#yes {
+    background: green;
+    color: white;
+    margin-top: 20px;
+}
+
+#no {
+    background: red;
+    color: white;
+    position: absolute;
+    left: 50px;
+    top: 100px;
+}
+
+/* жүрек */
+.heart {
+    position: fixed;
+    color: red;
+    font-size: 20px;
+    animation: float 5s linear infinite;
+}
+
+@keyframes float {
+    0% {
+        transform: translateY(100vh);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-10vh);
+        opacity: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<h1 id="title">Ақзере ренжімеш 😢</h1>
+<p id="text">Кешіресің ба?</p>
+
+<button id="yes">Ия</button>
+<button id="no">Жоқ</button>
+
+<!-- музыка -->
+<audio id="music" loop>
+    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
+</audio>
+
+<script>
+const noBtn = document.getElementById("no");
+const music = document.getElementById("music");
+
+// "Жоқ" қашады
+noBtn.addEventListener("mouseover", () => {
+    let x = Math.random() * (window.innerWidth - 100);
+    let y = Math.random() * (window.innerHeight - 50);
+    noBtn.style.left = x + "px";
+    noBtn.style.top = y + "px";
+});
+
+// "Ия" басқанда
+document.getElementById("yes").addEventListener("click", () => {
+    document.getElementById("title").innerText = "Рахмет алтыным ❤️";
+    document.getElementById("text").innerText = "";
+
+    music.play();
+
+    // жүректер шығару
+    setInterval(createHeart, 300);
+});
+
+// жүрек функциясы
+function createHeart() {
+    const heart = document.createElement("div");
+    heart.classList.add("heart");
+    heart.innerText = "❤️";
+
+    heart.style.left = Math.random() * window.innerWidth + "px";
+    heart.style.fontSize = (Math.random() * 20 + 10) + "px";
+
+    document.body.appendChild(heart);
+
+    setTimeout(() => {
+        heart.remove();
+    }, 5000);
+}
+</script>
+
+</body>
+</html>
