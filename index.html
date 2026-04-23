@@ -2,53 +2,61 @@
 <html lang="kk">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Кешірім сұрау</title>
 
 <style>
 body {
     margin: 0;
-    overflow: hidden;
+    padding: 0;
     background: linear-gradient(to right, pink, lightpink);
     font-family: Arial;
     text-align: center;
+    overflow: hidden;
+}
+
+/* контейнер */
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
 h1 {
-    margin-top: 120px;
-    font-size: 32px;
+    font-size: 26px;
+    margin: 10px;
 }
 
 p {
-    font-size: 20px;
+    font-size: 18px;
 }
 
 button {
-    padding: 15px 30px;
-    font-size: 18px;
+    padding: 12px 25px;
+    font-size: 16px;
     border: none;
-    border-radius: 12px;
+    border-radius: 10px;
     cursor: pointer;
+    margin: 10px;
 }
 
 #yes {
     background: green;
     color: white;
-    margin-top: 20px;
 }
 
 #no {
     background: red;
     color: white;
     position: absolute;
-    left: 50px;
-    top: 100px;
 }
 
-/* жүрек */
+/* жүректер */
 .heart {
     position: fixed;
     color: red;
-    font-size: 20px;
     animation: float 5s linear infinite;
 }
 
@@ -67,41 +75,47 @@ button {
 
 <body>
 
-<h1 id="title">Ақзере ренжімеш 😢</h1>
-<p id="text">Кешіресің ба?</p>
+<div class="container">
+    <h1 id="title">Ақзере ренжімеш 😢</h1>
+    <p id="text">Кешіресің ба?</p>
 
-<button id="yes">Ия</button>
-<button id="no">Жоқ</button>
+    <button id="yes">Ия</button>
+    <button id="no">Жоқ</button>
+</div>
 
-<!-- музыка -->
 <audio id="music" loop>
-    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3" type="audio/mp3">
+    <source src="https://www.bensound.com/bensound-music/bensound-love.mp3">
 </audio>
 
 <script>
 const noBtn = document.getElementById("no");
 const music = document.getElementById("music");
 
-// "Жоқ" қашады
-noBtn.addEventListener("mouseover", () => {
-    let x = Math.random() * (window.innerWidth - 100);
+// мобильде де қашу (touch)
+function moveButton() {
+    let x = Math.random() * (window.innerWidth - 80);
     let y = Math.random() * (window.innerHeight - 50);
     noBtn.style.left = x + "px";
     noBtn.style.top = y + "px";
-});
+}
 
-// "Ия" басқанда
+// ПК үшін
+noBtn.addEventListener("mouseover", moveButton);
+
+// Телефон үшін
+noBtn.addEventListener("touchstart", moveButton);
+
+// Ия басқанда
 document.getElementById("yes").addEventListener("click", () => {
     document.getElementById("title").innerText = "Рахмет алтыным ❤️";
     document.getElementById("text").innerText = "";
 
     music.play();
 
-    // жүректер шығару
     setInterval(createHeart, 300);
 });
 
-// жүрек функциясы
+// жүрек
 function createHeart() {
     const heart = document.createElement("div");
     heart.classList.add("heart");
